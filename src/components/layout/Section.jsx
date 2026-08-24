@@ -16,7 +16,7 @@ const Section = ({
   return (
     <section
       id={id}
-      className={`scroll-mt-20 py-16 sm:py-20 lg:py-24 ${backgroundClasses[background]} ${className}`}
+      className={`scroll-mt-20 py-8 sm:py-10 lg:py-12 ${backgroundClasses[background]} ${className}`}
     >
       <Container className={containerClassName}>{children}</Container>
     </section>

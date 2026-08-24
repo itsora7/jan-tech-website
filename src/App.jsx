@@ -1,17 +1,17 @@
 import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
 import Section from "./components/layout/Section";
 
+import Hero from "./components/sections/Hero";
 import Services from "./components/sections/Services";
 import Statistics from "./components/sections/Statistics";
-
-import Button from "./components/ui/Button";
-import Card from "./components/ui/Card";
-import SectionHeading from "./components/ui/SectionHeading";
 import Training from "./components/sections/Training";
 import Portfolio from "./components/sections/Portfolio";
 import Products from "./components/sections/Products";
 import Contact from "./components/sections/Contact";
-import Footer from "./components/layout/Footer";
+
+import Card from "./components/ui/Card";
+import SectionHeading from "./components/ui/SectionHeading";
 
 const App = () => {
   return (
@@ -19,41 +19,7 @@ const App = () => {
       <Header />
 
       <main>
-        <Section
-          id="home"
-          background="light"
-          className="flex min-h-[calc(100vh-5rem)] items-center"
-        >
-          <div className="mx-auto max-w-3xl rounded-3xl border border-brand-border bg-white px-5 py-10 text-center shadow-xl sm:px-10 sm:py-14">
-            <img
-              src="/logo.png"
-              alt="Jan Tech logo"
-              className="mx-auto h-auto w-full max-w-44 sm:max-w-52"
-            />
-
-            <p className="mt-6 text-sm font-bold tracking-[0.18em] text-emerald-700 uppercase">
-              Pokhara, Nepal
-            </p>
-
-            <h1 className="mt-3 text-4xl leading-tight font-bold text-brand-navy sm:text-5xl lg:text-6xl">
-              Welcome to Jan Tech
-            </h1>
-
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-brand-muted sm:text-lg sm:leading-8">
-              We are building a professional technology company website using
-              React, JavaScript, Tailwind CSS, and modern frontend development
-              practices.
-            </p>
-
-            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button href="#services">Start Building</Button>
-
-              <Button href="#contact" variant="outline">
-                Contact Us
-              </Button>
-            </div>
-          </div>
-        </Section>
+        <Hero />
 
         <Section id="about" background="white">
           <SectionHeading
@@ -93,15 +59,20 @@ const App = () => {
             </Card>
           </div>
         </Section>
+
         <Statistics />
+
         <Services />
 
         <Training />
+
         <Portfolio />
 
         <Products />
+
         <Contact />
       </main>
+
       <Footer />
     </>
   );

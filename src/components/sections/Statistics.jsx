@@ -5,7 +5,11 @@ import { stats } from "../../data/stats";
 
 const Statistics = () => {
   return (
-    <Section id="statistics" background="white">
+    <Section
+      id="statistics"
+      background="white"
+      className="pt-12 pb-10 sm:pt-14 sm:pb-12 lg:pt-16 lg:pb-12"
+    >
       <SectionHeading
         eyebrow="Jan Tech in Numbers"
         title="Growing With Every Project"
@@ -13,7 +17,7 @@ const Statistics = () => {
         accent="green"
       />
 
-      <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
         {stats.map((stat) => (
           <StatCard
             key={stat.id}
