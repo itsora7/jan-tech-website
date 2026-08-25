@@ -26,11 +26,13 @@ const ProductCard = ({
   accent = "green",
   status,
   technologies = [],
+  website,
 }) => {
   const colors = accentClasses[accent] || accentClasses.green;
 
   return (
     <Card accent={accent} hover className="group h-full overflow-hidden p-0">
+      {/* Product Image */}
       <div className="relative h-64 overflow-hidden">
         <img
           src={image}
@@ -47,6 +49,7 @@ const ProductCard = ({
         )}
       </div>
 
+      {/* Product Content */}
       <div className="p-7">
         <p
           className={`text-sm font-bold tracking-[0.15em] uppercase ${colors.link}`}
@@ -58,22 +61,29 @@ const ProductCard = ({
 
         <p className="mt-4 leading-7 text-brand-muted">{description}</p>
 
-        <div className="mt-6 flex flex-wrap gap-2">
-          {technologies.map((technology) => (
-            <span
-              key={technology}
-              className="rounded-full border border-brand-border bg-brand-background px-3 py-1.5 text-xs font-semibold text-brand-navy"
-            >
-              {technology}
-            </span>
-          ))}
-        </div>
+        {/* Technologies */}
+        {technologies.length > 0 && (
+          <div className="mt-6 flex flex-wrap gap-2">
+            {technologies.map((technology) => (
+              <span
+                key={technology}
+                className="rounded-full border border-brand-border bg-brand-background px-3 py-1.5 text-xs font-semibold text-brand-navy"
+              >
+                {technology}
+              </span>
+            ))}
+          </div>
+        )}
 
+        {/* Product Link */}
         <a
-          href="#contact"
+          href={website || "#contact"}
+          target={website ? "_blank" : undefined}
+          rel={website ? "noopener noreferrer" : undefined}
           className={`mt-7 inline-flex items-center gap-2 text-sm font-bold ${colors.link}`}
         >
-          Learn more
+          {website ? "Visit Website" : "Learn more"}
+
           <ArrowUpRight
             size={17}
             aria-hidden="true"

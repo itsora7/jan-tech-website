@@ -24,6 +24,7 @@ const Products = () => {
             accent={product.accent}
             status={product.status}
             technologies={product.technologies}
+            website={product.website}
           />
         ))}
       </div>

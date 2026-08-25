@@ -73,55 +73,73 @@ const Contact = () => {
             Whether you need a digital product, website, application, technical
             support, or training, tell us what you are planning.
           </p>
-
           <div className="mt-8 space-y-5">
+            {/* Location */}
             <div className="flex items-start gap-4">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-emerald-300">
-                <MapPin size={21} aria-hidden="true" />
+                <MapPin size={21} />
               </div>
 
               <div>
                 <p className="font-bold">Location</p>
-                <p className="mt-1 text-sm text-slate-300">Pokhara, Nepal</p>
+                <p className="mt-1 text-sm leading-6 text-slate-300">
+                  Pokhara, Kaski
+                  <br />
+                  Gandaki Province, Nepal
+                </p>
               </div>
             </div>
 
+            {/* Email */}
             <div className="flex items-start gap-4">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-blue-300">
-                <Mail size={21} aria-hidden="true" />
+                <Mail size={21} />
               </div>
 
               <div>
                 <p className="font-bold">Email</p>
-                <p className="mt-1 text-sm text-slate-300">
-                  Email address coming soon
-                </p>
+                <a
+                  href="mailto:itsora7@gmail.com"
+                  className="mt-1 block text-sm text-slate-300 transition hover:text-white"
+                >
+                  itsora7@gmail.com
+                </a>
               </div>
             </div>
 
+            {/* Phone */}
             <div className="flex items-start gap-4">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-emerald-300">
-                <Phone size={21} aria-hidden="true" />
+                <Phone size={21} />
               </div>
 
               <div>
                 <p className="font-bold">Phone</p>
-                <p className="mt-1 text-sm text-slate-300">
-                  Phone number coming soon
-                </p>
+                <a
+                  href="tel:+61481454170"
+                  className="mt-1 block text-sm text-slate-300 transition hover:text-white"
+                >
+                  +61 481 454 170
+                </a>
               </div>
             </div>
 
+            {/* WhatsApp */}
             <div className="flex items-start gap-4">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-blue-300">
-                <MessageCircle size={21} aria-hidden="true" />
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-emerald-300">
+                <MessageCircle size={21} />
               </div>
 
               <div>
-                <p className="font-bold">Response</p>
-                <p className="mt-1 text-sm text-slate-300">
-                  We aim to respond as soon as possible.
-                </p>
+                <p className="font-bold">WhatsApp</p>
+                <a
+                  href="https://wa.me/61481454170?text=Hello%20Jan%20Tech%2C%20I'm%20interested%20in%20your%20services."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-1 block text-sm text-slate-300 transition hover:text-emerald-300"
+                >
+                  Chat with Jan Tech
+                </a>
               </div>
             </div>
           </div>

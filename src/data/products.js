@@ -2,13 +2,14 @@ export const products = [
   {
     id: 1,
     name: "Khaiwa",
-    category: "Social & Entertainment Platform",
+    category: "Social Platform",
     description:
-      "A modern social platform bringing people together through posts, stories, chatrooms, games, digital gifts, communities, and interactive experiences.",
+      "A social and entertainment platform connecting people through digital experiences.",
     image: "/images/products/khaiwa.jpg",
     accent: "green",
-    status: "In Development",
-    technologies: ["Flutter", "Go", "PostgreSQL", "Redis"],
+    status: "Live",
+    technologies: ["Flutter", "Go", "PostgreSQL"],
+    website: "https://khaiwa.com/",
   },
   {
     id: 2,

@@ -72,54 +72,57 @@ const Footer = () => {
             <h2 className="text-lg font-bold">Contact</h2>
 
             <div className="mt-5 space-y-4">
-              <div className="flex items-start gap-3">
+              {/* Email */}
+              <div className="flex items-center gap-3">
                 <Mail
                   size={20}
-                  className="mt-0.5 shrink-0 text-blue-300"
+                  className="shrink-0 text-blue-300"
                   aria-hidden="true"
                 />
 
-                <p className="text-sm text-slate-300">Email coming soon</p>
+                <a
+                  href="mailto:itsora7@gmail.com"
+                  className="text-sm text-slate-300 transition hover:text-white"
+                >
+                  itsora7@gmail.com
+                </a>
               </div>
 
-              <div className="flex items-start gap-3">
+              {/* Phone */}
+              <div className="flex items-center gap-3">
                 <Phone
                   size={20}
-                  className="mt-0.5 shrink-0 text-emerald-300"
+                  className="shrink-0 text-emerald-300"
                   aria-hidden="true"
                 />
 
-                <p className="text-sm text-slate-300">Phone coming soon</p>
+                <a
+                  href="tel:+61481454170"
+                  className="text-sm text-slate-300 transition hover:text-white"
+                >
+                  +61 481 454 170
+                </a>
+              </div>
+
+              {/* WhatsApp */}
+              <div className="flex items-center gap-3">
+                <MessageCircle
+                  size={20}
+                  className="shrink-0 text-emerald-400"
+                  aria-hidden="true"
+                />
+
+                <a
+                  href="https://wa.me/61481454170"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-slate-300 transition hover:text-white"
+                >
+                  WhatsApp
+                </a>
               </div>
             </div>
-
-            <div className="mt-6 flex gap-3">
-              <button
-                type="button"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-slate-300 transition hover:bg-white/20 hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
-                aria-label="Website link coming soon"
-              >
-                <Globe2 size={18} aria-hidden="true" />
-              </button>
-
-              <button
-                type="button"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-slate-300 transition hover:bg-white/20 hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
-                aria-label="Social link coming soon"
-              >
-                <Link size={18} aria-hidden="true" />
-              </button>
-
-              <button
-                type="button"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-slate-300 transition hover:bg-white/20 hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
-                aria-label="Message link coming soon"
-              >
-                <MessageCircle size={18} aria-hidden="true" />
-              </button>
-            </div>
           </div>
-
           {/* Location */}
           <div>
             <h2 className="text-lg font-bold">Location</h2>
