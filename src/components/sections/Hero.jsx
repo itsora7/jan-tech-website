@@ -38,7 +38,7 @@ const Hero = () => {
     >
       {/* Full hero background */}
       <img
-        src="/images/hero/wow.png"
+        src="/images/hero/pokhara.png"
         alt=""
         aria-hidden="true"
         className="absolute inset-0 h-full w-full object-cover object-center"
