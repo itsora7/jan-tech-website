@@ -14,11 +14,18 @@ const Button = ({
   variant = "primary",
   className = "",
   onClick,
+  disabled = false,
 }) => {
   const baseClasses =
-    "inline-flex items-center justify-center rounded-xl px-6 py-3.5 font-bold transition duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4";
+    "inline-flex items-center justify-center rounded-xl px-6 py-3.5 font-bold transition duration-200 focus-visible:outline-none focus-visible:ring-4";
 
-  const buttonClasses = `${baseClasses} ${variantClasses[variant]} ${className}`;
+  const interactionClasses = disabled
+    ? "cursor-not-allowed opacity-60"
+    : "hover:-translate-y-0.5";
+
+  const buttonClasses = `${baseClasses} ${
+    variantClasses[variant]
+  } ${interactionClasses} ${className}`;
 
   if (href) {
     return (
@@ -29,7 +36,12 @@ const Button = ({
   }
 
   return (
-    <button type={type} className={buttonClasses} onClick={onClick}>
+    <button
+      type={type}
+      className={buttonClasses}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
     </button>
   );

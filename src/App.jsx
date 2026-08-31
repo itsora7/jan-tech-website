@@ -13,7 +13,10 @@ import Contact from "./components/sections/Contact";
 import Card from "./components/ui/Card";
 import SectionHeading from "./components/ui/SectionHeading";
 
+// import { testSupabaseSecurity } from "./lib/supabase";
+
 const App = () => {
+  // testSupabaseSecurity();
   return (
     <>
       <Header />

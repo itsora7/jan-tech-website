@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { CheckCircle2, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 import Section from "../layout/Section";
 import Button from "../ui/Button";
 import FormField from "../ui/FormField";
 import SectionHeading from "../ui/SectionHeading";
 import TextAreaField from "../ui/TextAreaField";
+
+import { supabase } from "../../lib/supabase";
 
 const initialFormData = {
   fullName: "",
@@ -20,6 +23,11 @@ const initialFormData = {
 const Contact = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [formMessage, setFormMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formStatus, setFormStatus] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileKey, setTurnstileKey] = useState(0);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -30,24 +38,130 @@ const Contact = () => {
     }));
 
     setFormMessage("");
+    setFormStatus("");
   };
 
-  const handleSubmit = (event) => {
+  const resetTurnstile = () => {
+    setTurnstileToken("");
+    setTurnstileKey((currentKey) => currentKey + 1);
+  };
+
+  const handleNewInquiry = () => {
+    setFormData(initialFormData);
+    setFormMessage("");
+    setFormStatus("");
+    setIsSubmitted(false);
+    resetTurnstile();
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (
-      !formData.fullName.trim() ||
-      !formData.email.trim() ||
-      !formData.subject.trim() ||
-      !formData.message.trim()
-    ) {
+    if (isSubmitting || isSubmitted) {
+      return;
+    }
+
+    if (!turnstileToken) {
+      setFormStatus("error");
+      setFormMessage("Please complete the security verification.");
+      return;
+    }
+
+    const fullName = formData.fullName.trim();
+    const email = formData.email.trim();
+    const phone = formData.phone.trim();
+    const companyName = formData.companyName.trim();
+    const serviceRequired = formData.serviceRequired.trim();
+    const subject = formData.subject.trim();
+    const message = formData.message.trim();
+
+    if (!fullName || !email || !subject || !message) {
+      setFormStatus("error");
       setFormMessage("Please complete all required fields.");
       return;
     }
 
-    setFormMessage(
-      "Form validation is working. We will connect this form to Supabase soon.",
-    );
+    if (fullName.length < 2) {
+      setFormStatus("error");
+      setFormMessage("Please enter your full name.");
+      return;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(email)) {
+      setFormStatus("error");
+      setFormMessage("Please enter a valid email address.");
+      return;
+    }
+
+    if (subject.length < 2) {
+      setFormStatus("error");
+      setFormMessage("Please enter a valid subject.");
+      return;
+    }
+
+    if (message.length < 10) {
+      setFormStatus("error");
+      setFormMessage("Please provide a little more detail in your message.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setFormMessage("");
+    setFormStatus("");
+
+    try {
+      const { data, error } = await supabase.functions.invoke(
+        "submit-contact",
+        {
+          body: {
+            fullName,
+            email,
+            phone,
+            companyName,
+            serviceRequired,
+            subject,
+            message,
+            turnstileToken,
+          },
+        },
+      );
+
+      if (error) {
+        console.error("submit-contact Edge Function error:", error);
+        throw error;
+      }
+
+      if (!data?.success) {
+        throw new Error(
+          data?.message || "Your inquiry could not be submitted.",
+        );
+      }
+
+      setFormData(initialFormData);
+      setTurnstileToken("");
+      setIsSubmitted(true);
+
+      setFormStatus("success");
+      setFormMessage(
+        data.message ||
+          "Thank you for contacting Jan Tech. Your inquiry has been sent successfully.",
+      );
+    } catch (error) {
+      console.error("Contact inquiry submission failed:", error);
+
+      // Turnstile tokens are single-use.
+      // After a failed server request, create a fresh verification.
+      resetTurnstile();
+
+      setFormStatus("error");
+      setFormMessage(
+        "We could not send your inquiry right now. Please verify again and try once more, or contact us by email or WhatsApp.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -60,6 +174,7 @@ const Contact = () => {
       />
 
       <div className="mt-12 grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
+        {/* Contact information */}
         <div className="rounded-3xl bg-brand-navy p-7 text-white sm:p-8">
           <p className="text-sm font-bold tracking-[0.16em] text-emerald-300 uppercase">
             Get in Touch
@@ -73,15 +188,17 @@ const Contact = () => {
             Whether you need a digital product, website, application, technical
             support, or training, tell us what you are planning.
           </p>
+
           <div className="mt-8 space-y-5">
             {/* Location */}
             <div className="flex items-start gap-4">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-emerald-300">
-                <MapPin size={21} />
+                <MapPin size={21} aria-hidden="true" />
               </div>
 
               <div>
                 <p className="font-bold">Location</p>
+
                 <p className="mt-1 text-sm leading-6 text-slate-300">
                   Pokhara, Kaski
                   <br />
@@ -93,11 +210,12 @@ const Contact = () => {
             {/* Email */}
             <div className="flex items-start gap-4">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-blue-300">
-                <Mail size={21} />
+                <Mail size={21} aria-hidden="true" />
               </div>
 
               <div>
                 <p className="font-bold">Email</p>
+
                 <a
                   href="mailto:itsora7@gmail.com"
                   className="mt-1 block text-sm text-slate-300 transition hover:text-white"
@@ -110,11 +228,12 @@ const Contact = () => {
             {/* Phone */}
             <div className="flex items-start gap-4">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-emerald-300">
-                <Phone size={21} />
+                <Phone size={21} aria-hidden="true" />
               </div>
 
               <div>
                 <p className="font-bold">Phone</p>
+
                 <a
                   href="tel:+61481454170"
                   className="mt-1 block text-sm text-slate-300 transition hover:text-white"
@@ -127,11 +246,12 @@ const Contact = () => {
             {/* WhatsApp */}
             <div className="flex items-start gap-4">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-emerald-300">
-                <MessageCircle size={21} />
+                <MessageCircle size={21} aria-hidden="true" />
               </div>
 
               <div>
                 <p className="font-bold">WhatsApp</p>
+
                 <a
                   href="https://wa.me/61481454170?text=Hello%20Jan%20Tech%2C%20I'm%20interested%20in%20your%20services."
                   target="_blank"
@@ -145,6 +265,7 @@ const Contact = () => {
           </div>
         </div>
 
+        {/* Contact form */}
         <form
           onSubmit={handleSubmit}
           className="rounded-3xl border border-brand-border bg-white p-6 shadow-sm sm:p-8"
@@ -245,18 +366,84 @@ const Contact = () => {
             />
           </div>
 
-          {formMessage && (
-            <p
-              className="mt-5 rounded-xl bg-brand-background px-4 py-3 text-sm font-medium text-brand-navy"
-              role="status"
-            >
-              {formMessage}
-            </p>
+          {!isSubmitted && (
+            <>
+              {/* Cloudflare Turnstile */}
+              <div className="mt-6">
+                <Turnstile
+                  key={turnstileKey}
+                  siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
+                  onSuccess={(token) => {
+                    setTurnstileToken(token);
+                    setFormMessage("");
+                    setFormStatus("");
+                  }}
+                  onExpire={() => {
+                    setTurnstileToken("");
+                  }}
+                  onError={() => {
+                    setTurnstileToken("");
+                    setFormStatus("error");
+                    setFormMessage(
+                      "Security verification could not be completed. Please try again.",
+                    );
+                  }}
+                />
+              </div>
+
+              {/* Error message */}
+              {formMessage && formStatus === "error" && (
+                <p
+                  className="mt-5 rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700"
+                  role="alert"
+                >
+                  {formMessage}
+                </p>
+              )}
+
+              {/* Submit */}
+              <div className="mt-6">
+                <Button
+                  type="submit"
+                  disabled={isSubmitting || !turnstileToken}
+                >
+                  {isSubmitting ? "Sending..." : "Send Inquiry"}
+                </Button>
+              </div>
+            </>
           )}
 
-          <div className="mt-6">
-            <Button type="submit">Send Inquiry</Button>
-          </div>
+          {isSubmitted && (
+            <div
+              className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-6"
+              role="status"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                  <CheckCircle2 size={24} aria-hidden="true" />
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-bold text-emerald-900">
+                    Inquiry Sent
+                  </h3>
+
+                  <p className="mt-1 text-sm leading-6 text-emerald-800">
+                    {formMessage}
+                  </p>
+                </div>
+              </div>
+
+              <Button
+                type="button"
+                variant="outline"
+                className="mt-5"
+                onClick={handleNewInquiry}
+              >
+                Send Another Inquiry
+              </Button>
+            </div>
+          )}
         </form>
       </div>
     </Section>
