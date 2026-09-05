@@ -5,7 +5,7 @@ export const products = [
     category: "Social Platform",
     description:
       "A social and entertainment platform connecting people through digital experiences.",
-    image: "/images/products/khaiwa.jpg",
+    image: "/images/products/khaiwa.webp",
     accent: "green",
     status: "Live",
     technologies: ["Flutter", "Go", "PostgreSQL"],
@@ -17,7 +17,7 @@ export const products = [
     category: "Digital Platform",
     description:
       "A digital product developed by Jan Tech with a focus on creating useful technology experiences for people in Nepal and beyond.",
-    image: "/images/products/jaaunepal.jpg",
+    image: "/images/products/jaaunepal.webp",
     accent: "blue",
     status: "In Development",
     technologies: ["React", "JavaScript", "Tailwind CSS"],

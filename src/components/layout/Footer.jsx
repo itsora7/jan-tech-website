@@ -1,4 +1,4 @@
-import { Globe2, Link, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 
 import { navigationItems } from "../../constants/navigation";
 import Container from "./Container";
@@ -9,16 +9,12 @@ const serviceLinks = [
     href: "#services",
   },
   {
-    label: "Mobile App Development",
-    href: "#services",
-  },
-  {
-    label: "Web Hosting",
-    href: "#services",
-  },
-  {
     label: "Training & Education",
     href: "#training",
+  },
+  {
+    label: "Jan Tech Products",
+    href: "#products",
   },
 ];
 

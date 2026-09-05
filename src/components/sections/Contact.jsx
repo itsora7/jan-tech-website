@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CheckCircle2, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { Turnstile } from "@marsidev/react-turnstile";
 
@@ -28,6 +28,25 @@ const Contact = () => {
   const [turnstileToken, setTurnstileToken] = useState("");
   const [turnstileKey, setTurnstileKey] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(
+    () => window.innerWidth < 360,
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 359px)");
+
+    const handleScreenChange = (event) => {
+      setIsSmallScreen(event.matches);
+      setTurnstileToken("");
+      setTurnstileKey((currentKey) => currentKey + 1);
+    };
+
+    mediaQuery.addEventListener("change", handleScreenChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleScreenChange);
+    };
+  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -130,7 +149,20 @@ const Contact = () => {
 
       if (error) {
         console.error("submit-contact Edge Function error:", error);
-        throw error;
+
+        // supabase-js only sets `error.message` to a generic
+        // "non-2xx status code" string. The real validation message is in
+        // the response body, reachable through `error.context`.
+        let serverMessage;
+
+        try {
+          const body = await error.context?.json();
+          serverMessage = body?.message;
+        } catch {
+          serverMessage = undefined;
+        }
+
+        throw new Error(serverMessage || "");
       }
 
       if (!data?.success) {
@@ -157,7 +189,8 @@ const Contact = () => {
 
       setFormStatus("error");
       setFormMessage(
-        "We could not send your inquiry right now. Please verify again and try once more, or contact us by email or WhatsApp.",
+        error?.message ||
+          "We could not send your inquiry right now. Please verify again and try once more, or contact us by email or WhatsApp.",
       );
     } finally {
       setIsSubmitting(false);
@@ -173,9 +206,9 @@ const Contact = () => {
         accent="green"
       />
 
-      <div className="mt-12 grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
+      <div className="mt-12 grid min-w-0 gap-8 lg:grid-cols-[0.75fr_1.25fr]">
         {/* Contact information */}
-        <div className="rounded-3xl bg-brand-navy p-7 text-white sm:p-8">
+        <div className="min-w-0 rounded-3xl bg-brand-navy p-7 text-white sm:p-8">
           <p className="text-sm font-bold tracking-[0.16em] text-emerald-300 uppercase">
             Get in Touch
           </p>
@@ -196,7 +229,7 @@ const Contact = () => {
                 <MapPin size={21} aria-hidden="true" />
               </div>
 
-              <div>
+              <div className="min-w-0">
                 <p className="font-bold">Location</p>
 
                 <p className="mt-1 text-sm leading-6 text-slate-300">
@@ -213,12 +246,12 @@ const Contact = () => {
                 <Mail size={21} aria-hidden="true" />
               </div>
 
-              <div>
+              <div className="min-w-0">
                 <p className="font-bold">Email</p>
 
                 <a
                   href="mailto:itsora7@gmail.com"
-                  className="mt-1 block text-sm text-slate-300 transition hover:text-white"
+                  className="mt-1 block break-all text-sm text-slate-300 transition hover:text-white"
                 >
                   itsora7@gmail.com
                 </a>
@@ -231,7 +264,7 @@ const Contact = () => {
                 <Phone size={21} aria-hidden="true" />
               </div>
 
-              <div>
+              <div className="min-w-0">
                 <p className="font-bold">Phone</p>
 
                 <a
@@ -249,7 +282,7 @@ const Contact = () => {
                 <MessageCircle size={21} aria-hidden="true" />
               </div>
 
-              <div>
+              <div className="min-w-0">
                 <p className="font-bold">WhatsApp</p>
 
                 <a
@@ -268,9 +301,9 @@ const Contact = () => {
         {/* Contact form */}
         <form
           onSubmit={handleSubmit}
-          className="rounded-3xl border border-brand-border bg-white p-6 shadow-sm sm:p-8"
+          className="min-w-0 rounded-3xl border border-brand-border bg-white p-4 shadow-sm min-[360px]:p-6 sm:p-8"
         >
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid min-w-0 gap-6 sm:grid-cols-2">
             <FormField
               id="fullName"
               label="Full Name"
@@ -316,7 +349,7 @@ const Contact = () => {
             />
           </div>
 
-          <div className="mt-6">
+          <div className="mt-6 min-w-0">
             <label
               htmlFor="serviceRequired"
               className="mb-2 block text-sm font-bold text-brand-navy"
@@ -329,7 +362,7 @@ const Contact = () => {
               name="serviceRequired"
               value={formData.serviceRequired}
               onChange={handleChange}
-              className="w-full rounded-xl border border-brand-border bg-white px-4 py-3.5 text-brand-navy outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
+              className="w-full min-w-0 rounded-xl border border-brand-border bg-white px-4 py-3.5 text-brand-navy outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
             >
               <option value="">Select a service</option>
               <option value="web-development">Web & App Development</option>
@@ -342,7 +375,7 @@ const Contact = () => {
             </select>
           </div>
 
-          <div className="mt-6">
+          <div className="mt-6 min-w-0">
             <FormField
               id="subject"
               label="Subject"
@@ -354,7 +387,7 @@ const Contact = () => {
             />
           </div>
 
-          <div className="mt-6">
+          <div className="mt-6 min-w-0">
             <TextAreaField
               id="message"
               label="Message"
@@ -369,10 +402,13 @@ const Contact = () => {
           {!isSubmitted && (
             <>
               {/* Cloudflare Turnstile */}
-              <div className="mt-6">
+              <div className="mt-6 min-w-0">
                 <Turnstile
-                  key={turnstileKey}
+                  key={`${turnstileKey}-${isSmallScreen ? "compact" : "normal"}`}
                   siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
+                  options={{
+                    size: isSmallScreen ? "compact" : "normal",
+                  }}
                   onSuccess={(token) => {
                     setTurnstileToken(token);
                     setFormMessage("");
@@ -423,7 +459,7 @@ const Contact = () => {
                   <CheckCircle2 size={24} aria-hidden="true" />
                 </div>
 
-                <div>
+                <div className="min-w-0">
                   <h3 className="text-lg font-bold text-emerald-900">
                     Inquiry Sent
                   </h3>

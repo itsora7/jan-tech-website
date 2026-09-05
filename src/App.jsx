@@ -6,22 +6,18 @@ import Hero from "./components/sections/Hero";
 import Services from "./components/sections/Services";
 import Statistics from "./components/sections/Statistics";
 import Training from "./components/sections/Training";
-import Portfolio from "./components/sections/Portfolio";
 import Products from "./components/sections/Products";
 import Contact from "./components/sections/Contact";
 
 import Card from "./components/ui/Card";
 import SectionHeading from "./components/ui/SectionHeading";
 
-// import { testSupabaseSecurity } from "./lib/supabase";
-
 const App = () => {
-  // testSupabaseSecurity();
   return (
     <>
       <Header />
 
-      <main>
+      <main id="main-content">
         <Hero />
 
         <Section id="about" background="white">
@@ -68,8 +64,6 @@ const App = () => {
         <Services />
 
         <Training />
-
-        <Portfolio />
 
         <Products />
 

@@ -16,10 +16,6 @@ export const navigationItems = [
     href: "#training",
   },
   {
-    label: "Portfolio",
-    href: "#portfolio",
-  },
-  {
     label: "Products",
     href: "#products",
   },

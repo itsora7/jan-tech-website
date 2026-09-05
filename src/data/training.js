@@ -8,7 +8,7 @@ export const trainingPrograms = [
       "Build practical computer skills for study, office work, communication, file management, internet use, and everyday digital productivity.",
     icon: MonitorCog,
     accent: "green",
-    image: "/images/training/basic-computer-training.jpg",
+    image: "/images/training/basic-computer-training.webp",
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ export const trainingPrograms = [
       "Learn computer hardware basics, operating systems, troubleshooting, networking fundamentals, device setup, and technical support skills.",
     icon: Network,
     accent: "navy",
-    image: "/images/training/system-network-support.jpg",
+    image: "/images/training/system-network-support.webp",
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ export const trainingPrograms = [
       "Develop practical English and Japanese communication skills for study, work, daily life, technology careers, and international opportunities.",
     icon: Languages,
     accent: "blue",
-    image: "/images/training/english-japanese-language.jpg",
+    image: "/images/training/english-japanese-language.webp",
   },
   {
     id: 4,
@@ -35,6 +35,6 @@ export const trainingPrograms = [
       "Get practical guidance on learning paths, technical skills, portfolio development, career preparation, and professional growth.",
     icon: UsersRound,
     accent: "green",
-    image: "/images/training/career-technical-mentoring.jpg",
+    image: "/images/training/career-technical-mentoring.webp",
   },
 ];

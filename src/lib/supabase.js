@@ -10,10 +10,3 @@ if (!supabaseUrl || !supabasePublishableKey) {
 }
 
 export const supabase = createClient(supabaseUrl, supabasePublishableKey);
-
-// export const testSupabaseSecurity = async () => {
-//   const { data, error } = await supabase.from("contact_inquiries").select("*");
-
-//   console.log("SECURITY TEST DATA:", data);
-//   console.log("SECURITY TEST ERROR:", error);
-// };

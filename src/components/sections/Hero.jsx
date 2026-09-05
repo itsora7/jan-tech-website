@@ -34,37 +34,40 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-[780px] scroll-mt-20 overflow-hidden bg-[#020817]"
+      className="relative min-h-[720px] scroll-mt-20 overflow-hidden bg-[#020817] sm:min-h-[780px]"
     >
       {/* Full hero background */}
       <img
-        src="/images/hero/pokhara.png"
+        src="/images/hero/pokhara.webp"
         alt=""
         aria-hidden="true"
+        fetchPriority="high"
+        decoding="async"
         className="absolute inset-0 h-full w-full object-cover object-center"
       />
 
-      {/* Dark only behind the text area */}
+      {/* Dark overlay behind the text area */}
       <div
         className="absolute inset-0 bg-gradient-to-r from-[#020817]/95 via-[#020817]/55 via-[38%] to-transparent to-[68%]"
         aria-hidden="true"
       />
 
-      {/* Very light bottom fade */}
+      {/* Light bottom fade */}
       <div
         className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#020817]/35 to-transparent"
         aria-hidden="true"
       />
 
-      {/* Small atmosphere only, no heavy darkening */}
+      {/* Subtle atmosphere */}
       <div
         className="absolute inset-0 bg-[radial-gradient(circle_at_18%_35%,rgba(16,185,129,0.08),transparent_28%),radial-gradient(circle_at_82%_25%,rgba(59,130,246,0.05),transparent_30%)]"
         aria-hidden="true"
       />
 
       <Container>
-        <div className="relative z-10 flex min-h-[780px] items-center py-16 lg:py-20">
+        <div className="relative z-10 flex min-h-[720px] items-center py-12 sm:min-h-[780px] sm:py-16 lg:py-20">
           <div className="max-w-2xl">
+            {/* Welcome badge */}
             <div className="inline-flex items-center gap-3 rounded-full border border-blue-400/50 bg-[#020817]/45 px-4 py-2 backdrop-blur-md">
               <span
                 className="h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)]"
@@ -76,7 +79,8 @@ const Hero = () => {
               </span>
             </div>
 
-            <h1 className="mt-7 text-5xl leading-[1.02] font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl">
+            {/* Main heading */}
+            <h1 className="mt-6 text-5xl leading-[1.02] font-extrabold tracking-tight text-white sm:mt-7 sm:text-6xl lg:text-7xl">
               Building Digital
               <br />
               Solutions for
@@ -86,15 +90,21 @@ const Hero = () => {
               </span>
             </h1>
 
-            <div className="mt-6 h-1 w-24 rounded-full bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500" />
+            {/* Accent line */}
+            <div
+              className="mt-6 h-1 w-24 rounded-full bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500"
+              aria-hidden="true"
+            />
 
-            <p className="mt-7 max-w-xl text-base leading-8 text-slate-100 sm:text-lg">
+            {/* Introduction */}
+            <p className="mt-6 max-w-xl text-base leading-7 text-slate-100 sm:mt-7 sm:text-lg sm:leading-8">
               From Pokhara to the digital world, Jan Tech builds modern
               websites, mobile applications, digital products, and practical
               technology solutions designed for real business needs.
             </p>
 
-            <div className="mt-9 grid grid-cols-2 gap-y-6 sm:grid-cols-4">
+            {/* Service highlights */}
+            <div className="mt-7 grid grid-cols-2 gap-x-4 gap-y-5 sm:mt-9 sm:grid-cols-4 sm:gap-x-0 sm:gap-y-6">
               {heroServices.map((service, index) => {
                 const Icon = service.icon;
 
@@ -115,7 +125,7 @@ const Hero = () => {
                       <Icon size={23} strokeWidth={1.8} aria-hidden="true" />
                     </div>
 
-                    <p className="mt-3 text-sm font-semibold leading-5 text-white">
+                    <p className="mt-3 text-sm leading-5 font-semibold text-white">
                       {service.label}
                     </p>
                   </div>
@@ -123,10 +133,11 @@ const Hero = () => {
               })}
             </div>
 
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+            {/* CTA buttons */}
+            <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:gap-4">
               <a
                 href="#services"
-                className="inline-flex items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-600 px-7 py-4 font-bold text-white shadow-lg shadow-blue-950/30 transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+                className="inline-flex items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-600 px-7 py-4 font-bold text-white shadow-lg shadow-blue-950/30 transition duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-300/40"
               >
                 Explore Services
                 <ArrowRight size={19} aria-hidden="true" />
@@ -134,7 +145,7 @@ const Hero = () => {
 
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-3 rounded-xl border border-white/50 bg-[#020817]/20 px-7 py-4 font-bold text-white backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-blue-300 hover:bg-white/10"
+                className="inline-flex items-center justify-center gap-3 rounded-xl border border-white/60 bg-[#020817]/35 px-7 py-4 font-bold text-white backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-blue-300 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-300/40"
               >
                 Contact Us
                 <ArrowRight size={19} aria-hidden="true" />

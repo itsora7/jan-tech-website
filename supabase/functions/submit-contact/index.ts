@@ -402,14 +402,14 @@ export default {
             emailResult,
           );
 
-          return jsonResponse(
-            {
-              success: false,
-              message:
-                "Your inquiry was saved, but the notification email could not be sent.",
-            },
-            502,
-          );
+          // The inquiry is already saved in the database at this point, so this
+          // must still report success to the client — otherwise the user
+          // re-submits and creates a duplicate row believing nothing was sent.
+          return jsonResponse({
+            success: true,
+            message:
+              "Thank you for contacting Jan Tech. Your inquiry has been saved successfully.",
+          });
         }
 
         console.log(

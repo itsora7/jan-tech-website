@@ -15,7 +15,7 @@ export const services = [
       "Custom websites and web applications built with modern technologies and responsive design.",
     icon: Code2,
     accent: "green",
-    image: "/images/services/web-development.jpg",
+    image: "/images/services/web-development.webp",
   },
   {
     id: 2,
@@ -24,7 +24,7 @@ export const services = [
       "Modern mobile applications designed for reliable performance and a smooth user experience.",
     icon: Smartphone,
     accent: "navy",
-    image: "/images/services/mobile-development.jpg",
+    image: "/images/services/mobile-development.webp",
   },
   {
     id: 3,
@@ -33,7 +33,7 @@ export const services = [
       "Reliable hosting solutions for websites, applications, and growing digital businesses.",
     icon: Server,
     accent: "blue",
-    image: "/images/services/web-hosting.jpg",
+    image: "/images/services/web-hosting.webp",
   },
   {
     id: 4,
@@ -42,7 +42,7 @@ export const services = [
       "Domain registration and setup support to help businesses establish a professional online identity.",
     icon: Globe2,
     accent: "green",
-    image: "/images/services/domain-registration.jpg",
+    image: "/images/services/domain-registration.webp",
   },
   {
     id: 5,
@@ -51,7 +51,7 @@ export const services = [
       "Ongoing technical maintenance and support to keep websites and digital systems running smoothly.",
     icon: LifeBuoy,
     accent: "navy",
-    image: "/images/services/maintenance-support.jpg",
+    image: "/images/services/maintenance-support.webp",
   },
   {
     id: 6,
@@ -60,6 +60,6 @@ export const services = [
       "Practical technology training for students, professionals, and people building new digital skills.",
     icon: GraduationCap,
     accent: "blue",
-    image: "/images/services/training-education.jpg",
+    image: "/images/services/training-education.webp",
   },
 ];

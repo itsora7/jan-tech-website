@@ -12,13 +12,14 @@ const Services = () => {
       background="light"
       className="relative overflow-hidden"
     >
+      {/* Background decoration */}
       <div
         className="absolute top-0 left-0 h-72 w-72 -translate-x-1/2 rounded-full bg-emerald-100/40 blur-3xl"
         aria-hidden="true"
       />
 
       <div
-        className="absolute right-0 bottom-0 h-80 w-80 translate-x-1/2 rounded-full bg-blue-100/50 blur-3xl"
+        className="pointer-events-none absolute right-0 bottom-0 h-64 w-64 rounded-full bg-blue-100/50 blur-3xl sm:h-80 sm:w-80"
         aria-hidden="true"
       />
 
@@ -30,7 +31,8 @@ const Services = () => {
           accent="blue"
         />
 
-        <div className="mx-auto mt-8 grid max-w-3xl grid-cols-1 overflow-hidden rounded-2xl border border-brand-border bg-white shadow-sm sm:grid-cols-3">
+        {/* Service trust points */}
+        <div className="mx-auto mt-7 grid max-w-3xl grid-cols-1 overflow-hidden rounded-2xl border border-brand-border bg-white shadow-sm sm:mt-8 sm:grid-cols-3">
           <div className="flex items-center gap-3 border-b border-brand-border px-5 py-4 sm:border-r sm:border-b-0">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
               <Sparkles size={20} aria-hidden="true" />
@@ -38,8 +40,7 @@ const Services = () => {
 
             <div>
               <p className="font-bold text-brand-navy">Modern Solutions</p>
-
-              <p className="text-sm text-brand-muted">Built for today</p>
+              <p className="mt-0.5 text-sm text-brand-muted">Built for today</p>
             </div>
           </div>
 
@@ -50,8 +51,7 @@ const Services = () => {
 
             <div>
               <p className="font-bold text-brand-navy">Reliable Delivery</p>
-
-              <p className="text-sm text-brand-muted">Built with care</p>
+              <p className="mt-0.5 text-sm text-brand-muted">Built with care</p>
             </div>
           </div>
 
@@ -62,13 +62,15 @@ const Services = () => {
 
             <div>
               <p className="font-bold text-brand-navy">Local Support</p>
-
-              <p className="text-sm text-brand-muted">Here when needed</p>
+              <p className="mt-0.5 text-sm text-brand-muted">
+                Here when needed
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {/* Service cards */}
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:mt-12 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
           {services.map((service) => (
             <ServiceCard
               key={service.id}
